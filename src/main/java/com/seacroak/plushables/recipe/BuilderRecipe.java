@@ -1,7 +1,5 @@
 package com.seacroak.plushables.recipe;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.inventory.SimpleInventory;
@@ -9,8 +7,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.recipe.*;
 import net.minecraft.registry.DynamicRegistryManager;
-import net.minecraft.util.Identifier;
-import net.minecraft.util.JsonHelper;
 import net.minecraft.util.collection.DefaultedList;
 import net.minecraft.world.World;
 
@@ -19,7 +15,7 @@ import java.util.function.Function;
 public class BuilderRecipe implements Recipe<SimpleInventory>  {
 
   public static final Codec<BuilderRecipe> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-          RecipeCodecs.CRAFTING_RESULT.fieldOf("output").forGetter(recipe -> recipe.output),
+          ItemStack.RECIPE_RESULT_CODEC.fieldOf("output").forGetter(recipe -> recipe.output),
           Ingredient.DISALLOW_EMPTY_CODEC.listOf().xmap(ingredients -> DefaultedList.copyOf(Ingredient.EMPTY, ingredients.toArray(Ingredient[]::new)), Function.identity()).fieldOf("ingredients").forGetter(recipe -> recipe.recipeItems)
   ).apply(instance, BuilderRecipe::new));
 

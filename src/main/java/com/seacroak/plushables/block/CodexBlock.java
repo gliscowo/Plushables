@@ -1,5 +1,6 @@
 package com.seacroak.plushables.block;
 
+import com.mojang.serialization.MapCodec;
 import com.seacroak.plushables.util.VoxelShapeUtils;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.minecraft.block.*;
@@ -75,5 +76,8 @@ public class CodexBlock extends HorizontalFacingBlock {
       builder.add(FACING);
     }
 
-
+  @Override
+  protected MapCodec<? extends HorizontalFacingBlock> getCodec() {
+    return null;
   }
+}

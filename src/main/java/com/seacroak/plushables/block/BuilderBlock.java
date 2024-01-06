@@ -1,5 +1,6 @@
 package com.seacroak.plushables.block;
 
+import com.mojang.serialization.MapCodec;
 import com.seacroak.plushables.block.tile.BuilderTileEntity;
 import com.seacroak.plushables.registry.uncommon.TileRegistry;
 import com.seacroak.plushables.util.HorizontalDirectionalBaseEntityBlock;
@@ -64,11 +65,6 @@ public class BuilderBlock extends HorizontalDirectionalBaseEntityBlock {
   }
 
   @Override
-  public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
-    super.onBreak(world, pos, state, player);
-  }
-
-  @Override
   public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
     if (state.isOf(newState.getBlock())) {
       return;
@@ -86,4 +82,8 @@ public class BuilderBlock extends HorizontalDirectionalBaseEntityBlock {
     return shape;
   }
 
+  @Override
+  protected MapCodec<? extends HorizontalDirectionalBaseEntityBlock> getCodec() {
+    return null;
+  }
 }

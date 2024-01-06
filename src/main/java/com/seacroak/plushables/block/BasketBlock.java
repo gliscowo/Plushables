@@ -1,5 +1,6 @@
 package com.seacroak.plushables.block;
 
+import com.mojang.serialization.MapCodec;
 import com.seacroak.plushables.PlushablesMod;
 import com.seacroak.plushables.block.tile.BasketBlockEntity;
 import com.seacroak.plushables.config.ClientConfigValues;
@@ -225,5 +226,8 @@ public class BasketBlock extends BlockWithEntity {
 
   }
 
-
+  @Override
+  protected MapCodec<? extends BlockWithEntity> getCodec() {
+    return null;
+  }
 }

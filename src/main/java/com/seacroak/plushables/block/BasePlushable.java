@@ -1,5 +1,6 @@
 package com.seacroak.plushables.block;
 
+import com.mojang.serialization.MapCodec;
 import com.seacroak.plushables.networking.ParticlePacketHandler;
 import com.seacroak.plushables.networking.PlushablesNetworking;
 import com.seacroak.plushables.networking.SoundPacketHandler;
@@ -86,7 +87,7 @@ public abstract class BasePlushable extends HorizontalFacingBlock implements Wat
 
   // Custom breaking particle code
   @Override
-  public void onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+  public BlockState onBreak(World world, BlockPos pos, BlockState state, PlayerEntity player) {
     if (world.isClient) {
       for (int i = 0; i < 5; i++) {
         world.addParticle(ParticleTypes.POOF, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, rand.nextFloat(-0.05f, 0.05f), rand.nextFloat(-0.05f, 0.05f), rand.nextFloat(-0.05f, 0.05f));
@@ -95,6 +96,8 @@ public abstract class BasePlushable extends HorizontalFacingBlock implements Wat
     }
     world.addParticle(ParticleTypes.FIREWORK, true, pos.getX(), pos.getY(), pos.getZ(), 0.1, 0.1, 0.1);
     super.onBreak(world, pos, state, player);
+
+    return state;
   }
 
 
@@ -149,4 +152,8 @@ public abstract class BasePlushable extends HorizontalFacingBlock implements Wat
     builder.add(FACING, WATERLOGGED);
   }
 
+  @Override
+  protected MapCodec<? extends HorizontalFacingBlock> getCodec() {
+    return null;
+  }
 }
